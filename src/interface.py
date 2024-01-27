@@ -2,8 +2,7 @@ import requests
 import streamlit as st
 
 
-@st.cache_data
-def submit_retreive_request(question):
+def submit_retreive_request(assistant, question):
     try:
         response = requests.post(
             f"{st.secrets['SERVER_HOST']}/retreive_query",
@@ -19,14 +18,16 @@ def submit_retreive_request(question):
 
         response.raise_for_status()
 
-        return response.json()["sql"], None
+        generated_sql = response.json()["sql"]
+        assistant.write(generated_sql)
+
+        return generated_sql
 
     except Exception as e:
-        return None, e
+        assistant.error(e)
 
 
-@st.cache_data
-def submit_train_request(sql=None, question=None, ddl=None, doc=None):
+def submit_train_request(assistant, sql=None, question=None, ddl=None, doc=None):
     try:
         response = requests.post(
             f"{st.secrets['SERVER_HOST']}/train_model",
@@ -43,8 +44,7 @@ def submit_train_request(sql=None, question=None, ddl=None, doc=None):
         )
 
         response.raise_for_status()
-
-        return True, None
+        assistant.write("Model trained successfully!")
 
     except Exception as e:
-        return False, e
+        assistant.error(e)

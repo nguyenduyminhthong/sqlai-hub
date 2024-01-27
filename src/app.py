@@ -16,19 +16,13 @@ if question is None:
 
 if question:
     st.session_state["question"] = question
-
     st.chat_message("user").write(f"{question}")
 
-    sql, e = submit_retreive_request(question)
-    if sql is None:
-        assistant = st.chat_message("assistant")
-        assistant.error(e)
-        assistant.button("New chat", on_click=reset_session_state)
-
-    else:
+    assistant = st.chat_message("assistant")
+    sql = submit_retreive_request(assistant, question)
+    if sql is not None:
         assistant = st.chat_message("assistant")
         assistant.code(sql, language="sql", line_numbers=True)
-        st.button("New chat", on_click=reset_session_state)
 
         sql_feedback = assistant.radio("Is this SQL query correct?", ["...", "Yes", "No"])
 
@@ -42,8 +36,6 @@ if question:
                 fixed_sql = sql_editor["text"]
 
         if fixed_sql:
-            success, e = submit_train_request(fixed_sql, question)
-            if success:
-                assistant.write("Model trained successfully!")
-            else:
-                assistant.error(e)
+            submit_train_request(assistant, fixed_sql, question)
+
+    assistant.button("New chat", on_click=reset_session_state)
