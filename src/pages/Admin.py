@@ -1,5 +1,5 @@
-import loguru as logger
 import streamlit as st
+from loguru import logger
 
 
 try:
@@ -40,4 +40,4 @@ try:
 
 except Exception as e:
     st.error("You don't have access to the database. Please contact the administrator.")
-    logger.error(e)
+    logger.debug(e)
