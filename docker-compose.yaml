@@ -8,6 +8,7 @@ services:
     container_name: sqlai-hub
     volumes:
       - ~/chroma/chroma-data:/chroma/chroma/
+      - ~/sqlai-hub/.cache:/root/.cache
     ports:
       - "8501:8501"
     command: streamlit run src/Chat.py
