@@ -40,4 +40,4 @@ try:
 
 except Exception as e:
     st.error("You don't have access to the database. Please contact the administrator.")
-    logger.debug(e)
+    logger.error(e)
