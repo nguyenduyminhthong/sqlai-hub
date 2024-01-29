@@ -5,7 +5,7 @@ from interface import retreive_sql, train_model
 from utils import clear_cache, reset_session_state
 
 
-st.set_page_config(page_title="Chat")
+st.set_page_config(page_title="Chat", layout="wide")
 st.sidebar.button("Refresh Program", on_click=clear_cache)
 
 

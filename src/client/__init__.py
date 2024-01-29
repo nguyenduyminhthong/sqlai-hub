@@ -15,3 +15,13 @@ def get_training_data(_database_client):
 @st.cache_data(ttl=30)
 def remove_training_data(_database_client, id):
     return _database_client.remove_training_data(id)
+
+
+@st.cache_data(ttl=30)
+def add_ddl(_database_client, ddl):
+    return _database_client.add_ddl(ddl)
+
+
+@st.cache_data(ttl=30)
+def add_doc(_database_client, doc):
+    return _database_client.add_doc(doc)
