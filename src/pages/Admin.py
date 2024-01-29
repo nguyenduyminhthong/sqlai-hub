@@ -1,4 +1,6 @@
+import loguru as logger
 import streamlit as st
+
 
 try:
     from client import add_ddl, add_doc, create_client, get_training_data, remove_training_data
@@ -38,3 +40,4 @@ try:
 
 except Exception as e:
     st.error("You don't have access to the database. Please contact the administrator.")
+    logger.error(e)
