@@ -2,9 +2,10 @@ import streamlit as st
 
 try:
     from client import create_client, get_training_data, remove_training_data
-    from utils import clear_cache
+    from utils import clear_cache, reset_session_state
 
 
+    reset_session_state()
     st.set_page_config(page_title="Admin")
     st.sidebar.button("Refresh Program", on_click=clear_cache)
 
