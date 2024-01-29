@@ -10,3 +10,8 @@ def create_client():
 @st.cache_data(ttl=30)
 def get_training_data(_database_client):
     return _database_client.get_training_data()
+
+
+@st.cache_data(ttl=30)
+def remove_training_data(_database_client, id):
+    return _database_client.remove_training_data(id)
