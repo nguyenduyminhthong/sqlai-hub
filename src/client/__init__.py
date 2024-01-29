@@ -1,5 +1,9 @@
 import streamlit as st
-from database import ChromaDBAgent
+
+try:
+    from database import ChromaDBAgent
+except RuntimeError:
+    st.error("You don't have access to the database. Please contact the administrator.")
 
 
 @st.cache_resource
