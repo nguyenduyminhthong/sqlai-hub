@@ -1,5 +1,5 @@
 import streamlit as st
-from database import ChromaDBAgent
+from sqlai.database import ChromaDBAgent
 
 
 @st.cache_resource

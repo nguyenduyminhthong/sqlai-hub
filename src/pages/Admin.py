@@ -1,8 +1,8 @@
 import streamlit as st
 
 try:
-    from client import add_ddl, add_doc, create_client, get_training_data, remove_training_data
-    from utils import clear_cache, reset_session_state
+    from ..client import add_ddl, add_doc, create_client, get_training_data, remove_training_data
+    from ..utils import clear_cache, reset_session_state
 
     reset_session_state()
     st.set_page_config(page_title="Admin", layout="wide")
