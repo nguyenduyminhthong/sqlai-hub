@@ -23,6 +23,7 @@ try:
         success = remove_training_data(database_client, id)
         if success:
             st.success(f"Successfully removed training data with ID: {id}")
+            clear_cache()
         else:
             st.error(f"Failed to remove training data with ID: {id}")
 
@@ -31,12 +32,14 @@ try:
     if ddl:
         add_ddl(database_client, ddl)
         st.success(f"Successfully added DDL.")
+        clear_cache()
 
     st.markdown(f"Enter :green[Document] below to train the model about the meaning of the data in the database.")
     doc = st.text_input("Document")
     if doc:
         add_doc(database_client, doc)
         st.success(f"Successfully added Document.")
+        clear_cache()
 
 except Exception as e:
     st.error("You don't have access to the database. Please contact the administrator.")
