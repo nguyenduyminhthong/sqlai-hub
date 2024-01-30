@@ -17,8 +17,6 @@ try:
 
     st.dataframe(df_sorted, use_container_width=True)
 
-    update_flag = False
-
     # id
     st.markdown(f"Enter :green[ID] below to remove the training data from the database.")
     id = st.session_state.get("id", default=None)
@@ -29,7 +27,6 @@ try:
         success = remove_training_data(database_client, id)
         if success:
             st.success(f"Successfully removed training data with ID: {id}")
-            update_flag = True
         else:
             st.error(f"Failed to remove training data with ID: {id}")
 
@@ -42,7 +39,6 @@ try:
     if ddl:
         add_ddl(database_client, ddl)
         st.success(f"Successfully added DDL.")
-        update_flag = True
 
     # Doc
     st.markdown(f"Enter :green[Document] below to train the model about the meaning of the data in the database.")
@@ -54,11 +50,9 @@ try:
     if doc:
         add_doc(database_client, doc)
         st.success(f"Successfully added Document.")
-        update_flag = True
 
-    if update_flag:
-        reset_session_state()
-        clear_cache()
+    reset_session_state()
+    clear_cache()
 
 except Exception as e:
     st.error("You don't have access to the database. Please contact the administrator.")
