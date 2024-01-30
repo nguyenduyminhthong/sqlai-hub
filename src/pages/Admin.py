@@ -51,9 +51,6 @@ try:
         add_doc(database_client, doc)
         st.success(f"Successfully added Document.")
 
-    reset_session_state()
-    clear_cache()
-
 except Exception as e:
     st.error("You don't have access to the database. Please contact the administrator.")
     logger.error(e)
