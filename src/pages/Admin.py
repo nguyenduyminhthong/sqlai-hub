@@ -45,6 +45,7 @@ try:
 
     if update_flag:
         clear_cache()
+        st.reload()
 
 except Exception as e:
     st.error("You don't have access to the database. Please contact the administrator.")
