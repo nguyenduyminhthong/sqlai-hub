@@ -17,13 +17,15 @@ try:
 
     st.dataframe(df_sorted, use_container_width=True)
 
+    update_flag = False
+
     st.markdown(f"Enter :green[ID] below to remove the training data from the database.")
     id = st.text_input("ID")
     if id:
         success = remove_training_data(database_client, id)
         if success:
             st.success(f"Successfully removed training data with ID: {id}")
-            clear_cache()
+            update_flag |= True
         else:
             st.error(f"Failed to remove training data with ID: {id}")
 
@@ -32,13 +34,16 @@ try:
     if ddl:
         add_ddl(database_client, ddl)
         st.success(f"Successfully added DDL.")
-        clear_cache()
+        update_flag |= True
 
     st.markdown(f"Enter :green[Document] below to train the model about the meaning of the data in the database.")
     doc = st.text_input("Document")
     if doc:
         add_doc(database_client, doc)
         st.success(f"Successfully added Document.")
+        update_flag |= True
+
+    if update_flag:
         clear_cache()
 
 except Exception as e:
