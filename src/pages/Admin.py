@@ -19,31 +19,45 @@ try:
 
     update_flag = False
 
+    # id
     st.markdown(f"Enter :green[ID] below to remove the training data from the database.")
-    id = st.text_input("ID")
+    id = st.session_state.get("id", default=None)
+    if id is None:
+        id = st.text_input("ID")
+
     if id:
         success = remove_training_data(database_client, id)
         if success:
             st.success(f"Successfully removed training data with ID: {id}")
-            update_flag |= True
+            update_flag = True
         else:
             st.error(f"Failed to remove training data with ID: {id}")
 
+    # Ddl
     st.markdown(f"Enter :green[DDL] below to train the model about structure of tables and other objects in the database.")
-    ddl = st.text_input("DDL")
+    ddl = st.session_state.get("ddl", default=None)
+    if ddl is None:
+        ddl = st.text_input("DDL")
+
     if ddl:
         add_ddl(database_client, ddl)
         st.success(f"Successfully added DDL.")
-        update_flag |= True
+        update_flag = True
 
+    # Doc
     st.markdown(f"Enter :green[Document] below to train the model about the meaning of the data in the database.")
-    doc = st.text_input("Document")
+
+    doc = st.session_state.get("doc", default=None)
+    if doc is None:
+        doc = st.text_input("Document")
+
     if doc:
         add_doc(database_client, doc)
         st.success(f"Successfully added Document.")
-        update_flag |= True
+        update_flag = True
 
     if update_flag:
+        reset_session_state()
         clear_cache()
 
 except Exception as e:
