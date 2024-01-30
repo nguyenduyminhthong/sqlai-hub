@@ -17,7 +17,7 @@ try:
 
     st.dataframe(df_sorted, use_container_width=True)
 
-    # id
+    # Id
     st.markdown(f"Enter :green[ID] below to remove the training data from the database.")
     id = st.session_state.get("id", default=None)
     if id is None:
