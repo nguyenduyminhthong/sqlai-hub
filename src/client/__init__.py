@@ -4,7 +4,7 @@ from sqlai.database import ChromaDBAgent
 
 @st.cache_resource
 def create_client():
-    return ChromaDBAgent(path=st.secrets["VECTOR_DB_PATH"], client_type="PersistentClient", telemetry=False)
+    return ChromaDBAgent(path=st.secrets["VECTOR_DB_PATH"], client_type="PersistentClient")
 
 
 @st.cache_data(ttl=30)
